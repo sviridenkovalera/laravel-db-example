@@ -3,16 +3,27 @@
 
     use Illuminate\Database\Capsule\Manager as DB;
 
-    DB::schema()->create('users', function ($table) {
-        $table->increments('id');
-        $table->string('email')->unique();
-        $table->integer('votes');
+    use App\Tables\User;
+
+    DB::schema()->create(User::table_name, function ($table) {
+        $table->increments(User::id);
+        $table->string(User::email)->unique();
+        $table->integer(User::votes);
         $table->timestamps();
     });
 
 
-    DB::table('users')->insert([
-        ['email' => 'user1@gmail.com', "votes" => 0],
-        ['email' => 'user2@gmail.com', "votes" => 0],
-        ['email' => 'user3@gmail.com', "votes" => 0],
+    DB::table(User::table_name)->insert([
+        [
+            User::email => 'user1@gmail.com',
+            User::votes => 0,
+        ],
+        [
+            User::email => 'user2@gmail.com',
+            User::votes => 0,
+        ],
+        [
+            User::email => 'user3@gmail.com',
+            User::votes => 0,
+        ],
     ]);
